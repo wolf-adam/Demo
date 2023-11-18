@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import { GlobalContext } from './context/Global';
 
 const App = () => {
-  const { temp } = useContext(GlobalContext);
-  console.log('temp', temp);
+  const { state } = useContext(GlobalContext);
+  console.log('state', state);
 
   return (
     <div className="App">

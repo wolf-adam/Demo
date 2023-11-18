@@ -1,11 +1,16 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
+    const [state, setState] = useState({
+        letters: [],
+    })
+
     return (
         <GlobalContext.Provider value={{
-            temp: "Reed",
+            state,
+            setState,
         }} >
             {children}
         </GlobalContext.Provider >
