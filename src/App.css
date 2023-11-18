@@ -1,18 +1,65 @@
 .App {
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-.context {
+  justify-content: space-around;
+  flex-direction: column;
   width: 80vw;
   height: 80vh;
   background-color: white;
   border-radius: 5%;
+}
+
+.context {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.imagePlace {
+  background-color: rebeccapurple;
+  width: 10rem;
+  height: 10rem;
+  margin: 2rem;
+}
+
+.custom-button {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 10rem;
+  height: 3rem;
+  color: black;
+  background-color: white;
+  border: black solid 2px;
+  border-radius: 0.5em;
+  box-shadow: 5px 5px #88888833;
+
+  font-size: medium;
+}
+
+.custom-button:hover {
+  background-color: lightgrey;
+}
+
+.inverted {
+  color: white;
+  background-color: black;
+}
+
+.inverted:hover {
+  background-color: grey;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
 }

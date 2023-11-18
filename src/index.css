@@ -12,6 +12,9 @@ body {
 }
 
 #root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
 }
@@ -24,7 +27,7 @@ code {
 svg path,
 svg circle {
   stroke: #000;
-  stroke-width: 0.25;
+  stroke-width: 0.5;
   stroke-linecap: round;
   fill: none;
 }
