@@ -12,7 +12,7 @@ const App = () => {
   return (
     <div className='App'>
       <div className='navbar'>Navbar</div>
-      <div className='context'>
+      <div className='content'>
         <div className='imagePlace'></div>
         <div className='input'>
           <h1>Title</h1>
