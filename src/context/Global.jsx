@@ -1,4 +1,5 @@
 import { createContext, useReducer, useState } from "react";
+import { Status } from "../constants/constant";
 import alphabet from '../data/alphabet.json'
 
 export const GlobalContext = createContext();
@@ -25,11 +26,15 @@ const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, {
         letters: enhancedLetters
     })
+    // TODO: Get default status from localStorage
+    const [status, setStatus] = useState(Status.START)
 
     return (
         <GlobalContext.Provider value={{
             state,
             dispatch,
+            status,
+            setStatus,
         }} >
             {children}
         </GlobalContext.Provider >
