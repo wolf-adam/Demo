@@ -1,14 +1,13 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 
-import { GlobalContext } from './context/Global';
-import LetterButtonGroup from './components/LetterButtonGroup/LetterButtonGroup';
+// import { GlobalContext } from './context/Global';
+import Content from './components/Content/Content';
 import FooterButtonGroup from './components/FooterButtonGroup/FooterButtonGroup';
 import './App.css';
 import NavBar from './components/Navbar/Navbar';
 
 const App = () => {
-  const { state } = useContext(GlobalContext);
-  console.log('state', state);
+  // const { state } = useContext(GlobalContext);
 
   return (
     <div className='App'>
@@ -17,6 +16,7 @@ const App = () => {
         <div className='imagePlace'></div>
         <div className='input'>
           <h1>Hangman '23</h1>
+          <Content />
         </div>
       </div>
       <FooterButtonGroup />
