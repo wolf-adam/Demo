@@ -17,6 +17,16 @@ const reducer = (state, action) => {
             ]
         };
     }
+    if (action.type === 'reset') {
+        const resetedLetters = state.letters.map(element => ({
+            value: element.value,
+            clicked: false
+        }))
+
+        return {
+            letters: resetedLetters
+        };
+    }
     throw Error('Unknown action.');
 }
 
