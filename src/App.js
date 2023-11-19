@@ -15,9 +15,7 @@ const App = () => {
       <div className='content'>
         <div className='imagePlace'></div>
         <div className='input'>
-          <h1>Title</h1>
-          <div>Content</div>
-          <LetterButtonGroup />
+          <h1>Hangman '23</h1>
         </div>
       </div>
       <FooterButtonGroup />
