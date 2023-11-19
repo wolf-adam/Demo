@@ -4,6 +4,7 @@ import { GlobalContext } from './context/Global';
 import LetterButtonGroup from './components/LetterButtonGroup/LetterButtonGroup';
 import FooterButtonGroup from './components/FooterButtonGroup/FooterButtonGroup';
 import './App.css';
+import NavBar from './components/Navbar/Navbar';
 
 const App = () => {
   const { state } = useContext(GlobalContext);
@@ -11,7 +12,7 @@ const App = () => {
 
   return (
     <div className='App'>
-      <div className='navbar'>Navbar</div>
+      <NavBar />
       <div className='content'>
         <div className='imagePlace'></div>
         <div className='input'>
