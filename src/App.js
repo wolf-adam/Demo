@@ -1,9 +1,6 @@
-import { useContext } from 'react';
-
-import { GlobalContext } from './context/Global';
-import LetterButtonGroup from './components/LetterButtonGroup/LetterButtonGroup';
-import FooterButtonGroup from './components/FooterButtonGroup/FooterButtonGroup';
 import './App.css';
+import { useContext } from 'react';
+import { GlobalContext } from './context/Global';
 
 const App = () => {
   const { state } = useContext(GlobalContext);
@@ -17,10 +14,12 @@ const App = () => {
         <div className='input'>
           <h1>Title</h1>
           <div>Content</div>
-          <LetterButtonGroup />
         </div>
       </div>
-      <FooterButtonGroup />
+      <div className='button-group'>
+        <div className="custom-button">Button text1</div>
+        <div className="custom-button inverted">Button text2</div>
+      </div>
     </div>
   );
 }
