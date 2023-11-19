@@ -28,6 +28,7 @@ const GlobalProvider = ({ children }) => {
     })
     // TODO: Get default status from localStorage
     const [status, setStatus] = useState(Status.START)
+    const [word, setWord] = useState('')
 
     return (
         <GlobalContext.Provider value={{
@@ -35,6 +36,8 @@ const GlobalProvider = ({ children }) => {
             dispatch,
             status,
             setStatus,
+            word,
+            setWord,
         }} >
             {children}
         </GlobalContext.Provider >
