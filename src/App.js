@@ -1,23 +1,22 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 
-import { GlobalContext } from './context/Global';
-import LetterButtonGroup from './components/LetterButtonGroup/LetterButtonGroup';
+// import { GlobalContext } from './context/Global';
+import Content from './components/Content/Content';
 import FooterButtonGroup from './components/FooterButtonGroup/FooterButtonGroup';
 import './App.css';
+import NavBar from './components/Navbar/Navbar';
 
 const App = () => {
-  const { state } = useContext(GlobalContext);
-  console.log('state', state);
+  // const { state } = useContext(GlobalContext);
 
   return (
     <div className='App'>
-      <div className='navbar'>Navbar</div>
-      <div className='context'>
+      <NavBar />
+      <div className='content'>
         <div className='imagePlace'></div>
         <div className='input'>
-          <h1>Title</h1>
-          <div>Content</div>
-          <LetterButtonGroup />
+          <h1>Hangman '23</h1>
+          <Content />
         </div>
       </div>
       <FooterButtonGroup />

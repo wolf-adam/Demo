@@ -17,6 +17,16 @@ const reducer = (state, action) => {
             ]
         };
     }
+    if (action.type === 'reset') {
+        const resetedLetters = state.letters.map(element => ({
+            value: element.value,
+            clicked: false
+        }))
+
+        return {
+            letters: resetedLetters
+        };
+    }
     throw Error('Unknown action.');
 }
 
@@ -28,6 +38,7 @@ const GlobalProvider = ({ children }) => {
     })
     // TODO: Get default status from localStorage
     const [status, setStatus] = useState(Status.START)
+    const [word, setWord] = useState('')
 
     return (
         <GlobalContext.Provider value={{
@@ -35,6 +46,8 @@ const GlobalProvider = ({ children }) => {
             dispatch,
             status,
             setStatus,
+            word,
+            setWord,
         }} >
             {children}
         </GlobalContext.Provider >

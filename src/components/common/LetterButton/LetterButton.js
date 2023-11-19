@@ -4,7 +4,7 @@ import './LetterButton.css';
 const LetterButton = ({ disabled, onClick, text }) => {
     return (
         <Button className='letter-button bold' onClick={onClick} disabled={disabled}>
-            {text.toUpperCase()}
+            {typeof text === String ? text.toUpperCase() : text}
         </Button>
     );
 };
