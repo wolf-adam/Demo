@@ -2,6 +2,7 @@ import { useContext } from "react";
 
 import { GlobalContext } from "../../context/Global";
 import { Status } from "../../constants/constant";
+import WordGuesserContainer from "../WordGuesserContainer/WordGuesserContainer";
 import WordChooser from "../WordChooser/WordChooser";
 import LetterButtonGroup from "../LetterButtonGroup/LetterButtonGroup";
 
@@ -21,7 +22,12 @@ const Content = () => {
                 </p>
             </>
         default:
-            return <LetterButtonGroup />
+            return (
+                <>
+                    <WordGuesserContainer />
+                    <LetterButtonGroup />
+                </>
+            );
     }
 };
 

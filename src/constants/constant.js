@@ -6,4 +6,6 @@ const Status = {
     'END': 'end'
 }
 
-export { Status }
+const MAX_TRIES = 10;
+
+export { Status, MAX_TRIES }
