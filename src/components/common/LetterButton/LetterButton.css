@@ -11,3 +11,7 @@
     border: 2px solid red;
     box-shadow: 5px 5px lightpink;
 }
+
+.selected:hover {
+    background-color: #f08080A0;
+}
