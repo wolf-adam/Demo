@@ -14,6 +14,10 @@ const reducer = (state, action) => {
         return {
             letters: [
                 ...state.letters,
+            ],
+            tries: [
+                ...state.tries,
+                action.value
             ]
         };
     }
@@ -24,7 +28,8 @@ const reducer = (state, action) => {
         }))
 
         return {
-            letters: resetedLetters
+            letters: resetedLetters,
+            tries: []
         };
     }
     throw Error('Unknown action.');
@@ -34,7 +39,8 @@ const GlobalProvider = ({ children }) => {
     const letters = alphabet;
     const enhancedLetters = letters.map(letter => ({ value: letter, clicked: false }))
     const [state, dispatch] = useReducer(reducer, {
-        letters: enhancedLetters
+        letters: enhancedLetters,
+        tries: [],
     })
     // TODO: Get default status from localStorage
     const [status, setStatus] = useState(Status.START)
