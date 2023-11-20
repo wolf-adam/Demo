@@ -14,22 +14,24 @@ const WordGuesserContainer = () => {
     else if (!hasChance && !allLettersAreGuessed) result = "You lost! :'("
 
     return (
-        <div className='letter-button-group'>
+        <>
             <p>{result}</p>
-            {wordArray.map((letter, index) => {
-                const letterIsGuessed = state.tries.find(triedLetter => triedLetter === letter)
-                const content = letterIsGuessed ? letter : '';
+            <div className='word-letter-button-group'>
+                {wordArray.map((letter, index) => {
+                    const letterIsGuessed = state.tries.find(triedLetter => triedLetter === letter)
+                    const content = letterIsGuessed ? letter : '';
 
-                return (
-                    <div
-                        className="hidden-letter-box"
-                        key={`hidden-letter-${index}`}
-                    >
-                        {content}
-                    </div>
-                )
-            })}
-        </div>
+                    return (
+                        <div
+                            className="hidden-letter-box"
+                            key={`hidden-letter-${index}`}
+                        >
+                            {content}
+                        </div>
+                    )
+                })}
+            </div>
+        </>
     );
 };
 
