@@ -6,3 +6,8 @@
 .bold {
     font-weight: bold;
 }
+
+.selected {
+    border: 2px solid red;
+    box-shadow: 5px 5px lightcoral;
+}

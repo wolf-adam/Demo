@@ -7,18 +7,23 @@ import './WordChooser.css';
 
 const WordChooser = () => {
     const wordsLength = [...new Set(wordsFromFile.map(word => word.length))];
-    const { setWord } = useContext(GlobalContext);
+    const { word, setWord } = useContext(GlobalContext);
+
+    const getRandomWord = length => {
+        const filteredWordsArray = wordsFromFile.filter(word => word.length === length)
+        const randomIndex = Math.floor(Math.random() * filteredWordsArray.length)
+
+        return filteredWordsArray[randomIndex];
+    }
 
     return (
         <div className='letter-button-group'>
             {wordsLength.map(length => (
                 <LetterButton
                     key={length}
+                    selected={word.length === length}
                     text={length}
-                    onClick={() => {
-                        // TODO: Randomly select a word
-                        setWord(wordsFromFile.find(word => word.length === length));
-                    }}
+                    onClick={() => setWord(getRandomWord(length))}
                 />
             ))}
         </div>
