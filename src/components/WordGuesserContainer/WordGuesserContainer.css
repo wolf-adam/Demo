@@ -1,0 +1,6 @@
+.hidden-letter-box {
+    width: 2rem;
+    height: 2rem;
+    border: black solid 2px;
+    border-radius: 0.5em;
+}
