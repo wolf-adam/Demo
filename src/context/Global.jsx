@@ -1,5 +1,5 @@
-import { createContext, useReducer, useState } from "react";
-import { Status } from "../constants/constant";
+import { createContext, useEffect, useReducer, useState } from "react";
+import { MAX_TRIES, Status } from "../constants/constant";
 import alphabet from '../data/alphabet.json'
 
 export const GlobalContext = createContext();
@@ -21,6 +21,17 @@ const reducer = (state, action) => {
             ]
         };
     }
+    if (action.type === 'end_game') {
+        const resetedLetters = state.letters.map(element => ({
+            value: element.value,
+            clicked: true
+        }))
+
+        return {
+            letters: resetedLetters,
+            tries: state.tries,
+        };
+    }
     if (action.type === 'reset') {
         const resetedLetters = state.letters.map(element => ({
             value: element.value,
@@ -38,6 +49,7 @@ const reducer = (state, action) => {
 const GlobalProvider = ({ children }) => {
     const letters = alphabet;
     const enhancedLetters = letters.map(letter => ({ value: letter, clicked: false }))
+    // TODO: Change tries to guesses
     const [state, dispatch] = useReducer(reducer, {
         letters: enhancedLetters,
         tries: [],
@@ -45,6 +57,18 @@ const GlobalProvider = ({ children }) => {
     // TODO: Get default status from localStorage
     const [status, setStatus] = useState(Status.START)
     const [word, setWord] = useState('')
+
+    // Calculate if there is more guessing available
+    const uniqueWordArray = [...new Set(word.split(''))];
+    const hasChance = state.tries.length < MAX_TRIES;
+
+    // Check if every letter is guesssed
+    const boolWordArray = uniqueWordArray.map(letter => state.tries.includes(letter))
+    const allLettersAreGuessed = boolWordArray.every(boolValue => boolValue === true)
+
+    useEffect(() => {
+        if (word.length !== 0 && (!hasChance || allLettersAreGuessed)) dispatch({ type: 'end_game' })
+    }, [state.tries]);
 
     return (
         <GlobalContext.Provider value={{
@@ -54,6 +78,8 @@ const GlobalProvider = ({ children }) => {
             setStatus,
             word,
             setWord,
+            hasChance,
+            allLettersAreGuessed
         }} >
             {children}
         </GlobalContext.Provider >
