@@ -12,6 +12,8 @@ const FooterButtonGroup = () => {
     setStatus,
     word,
     setWord,
+    hasChance,
+    allLettersAreGuessed,
   } = useContext(GlobalContext)
 
   let buttons;
@@ -34,7 +36,8 @@ const FooterButtonGroup = () => {
         {
           text: "end game",
           inverted: false,
-          onClick: () => setStatus(Status.END)
+          onClick: () => setStatus(Status.END),
+          disabled: !hasChance || allLettersAreGuessed
         },
         {
           text: "start new game",
@@ -52,7 +55,12 @@ const FooterButtonGroup = () => {
   return (
     <div className='footer-button-group'>
       {buttons.map(button => (
-        <Button key={button.text} inverted={button.inverted} onClick={button.onClick}>
+        <Button
+          key={button.text}
+          inverted={button.inverted}
+          onClick={button.onClick}
+          disabled={button.disabled}
+        >
           {button.text.toUpperCase()}
         </Button>
       ))}
