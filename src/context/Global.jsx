@@ -28,7 +28,7 @@ const reducer = (state, action) => {
 
         return {
             letters: resetedLetters,
-            tries: state.tries,
+            tries: action.value,
         };
     }
     if (action.type === 'reset') {
@@ -50,7 +50,11 @@ export const GlobalContext = createContext();
 const GlobalProvider = ({ children }) => {
     const letters = alphabet;
     const enhancedLetters = letters.map(letter => ({ value: letter, clicked: false }))
-    // TODO: Change tries to guesses
+    /** 
+     * TODO: 
+     *  - Change tries to guesses
+     *  - add 'gaveUp' boolean to better UX(?)
+     * */
     const [state, dispatch] = useReducer(reducer, {
         letters: enhancedLetters,
         tries: [],
@@ -69,8 +73,16 @@ const GlobalProvider = ({ children }) => {
     const allLettersAreGuessed = boolWordArray.every(boolValue => boolValue === true)
 
     useEffect(() => {
-        if (word.length !== 0 && (!hasChance || allLettersAreGuessed)) dispatch({ type: 'end_game' })
-    }, [state.tries]);
+        if (word.length !== 0 && (!hasChance || allLettersAreGuessed)) {
+            dispatch({ type: 'end_game', value: uniqueWordArray })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hasChance]);
+
+    useEffect(() => {
+        if (status === Status.END) dispatch({ type: 'end_game', value: uniqueWordArray })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [status])
 
     return (
         <GlobalContext.Provider value={{
