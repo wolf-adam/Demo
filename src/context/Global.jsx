@@ -14,8 +14,8 @@ const reducer = (state, action) => {
             letters: [
                 ...state.letters,
             ],
-            tries: [
-                ...state.tries,
+            guesses: [
+                ...state.guesses,
                 action.value
             ]
         };
@@ -28,7 +28,7 @@ const reducer = (state, action) => {
 
         return {
             letters: resetedLetters,
-            tries: action.value,
+            guesses: action.value,
         };
     }
     if (action.type === 'reset') {
@@ -39,7 +39,7 @@ const reducer = (state, action) => {
 
         return {
             letters: resetedLetters,
-            tries: []
+            guesses: []
         };
     }
     throw Error('Unknown action.');
@@ -52,24 +52,23 @@ const GlobalProvider = ({ children }) => {
     const enhancedLetters = letters.map(letter => ({ value: letter, clicked: false }))
     /** 
      * TODO: 
-     *  - Change tries to guesses
      *  - add 'gaveUp' boolean to better UX(?)
      * */
     const [state, dispatch] = useReducer(reducer, {
         letters: enhancedLetters,
-        tries: [],
+        guesses: [],
     })
     // TODO: Get default status from localStorage
     const [status, setStatus] = useState(Status.START)
     const [word, setWord] = useState('')
 
     // Calculate if there is more guessing available
-    const hasChance = state.tries.length < MAX_TRIES;
+    const hasChance = state.guesses.length < MAX_TRIES;
 
     // Check if every letter is guesssed
     const wordArray = word.split('');
     const uniqueWordArray = makeUniqueArray(wordArray)
-    const boolWordArray = uniqueWordArray.map(letter => state.tries.includes(letter))
+    const boolWordArray = uniqueWordArray.map(letter => state.guesses.includes(letter))
     const allLettersAreGuessed = boolWordArray.every(boolValue => boolValue === true)
 
     useEffect(() => {
