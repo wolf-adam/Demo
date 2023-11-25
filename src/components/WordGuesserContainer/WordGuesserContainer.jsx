@@ -1,35 +1,31 @@
 import { useContext } from "react";
 
 import { GlobalContext } from "../../context/Global";
+import ResultPanel from "../ResultPanel/ResultPanel";
 import './WordGuesserContainer.css';
 
 const WordGuesserContainer = () => {
-    const { state, word, hasChance, allLettersAreGuessed } = useContext(GlobalContext);
-
-    // Create an array of the word
-    const wordArray = word.split('');
-
-    let result;
-    if (hasChance && allLettersAreGuessed) result = 'You win!'
-    else if (!hasChance && !allLettersAreGuessed) result = "You lost! :'("
+    const { state, wordArray } = useContext(GlobalContext);
 
     return (
-        <div className='letter-button-group'>
-            <p>{result}</p>
-            {wordArray.map((letter, index) => {
-                const letterIsGuessed = state.tries.find(triedLetter => triedLetter === letter)
-                const content = letterIsGuessed ? letter : '';
+        <>
+            <ResultPanel />
+            <div className='word-letter-button-group'>
+                {wordArray.map((letter, index) => {
+                    const letterIsGuessed = state.tries.find(triedLetter => triedLetter === letter)
+                    const content = letterIsGuessed ? letter : '';
 
-                return (
-                    <div
-                        className="hidden-letter-box"
-                        key={`hidden-letter-${index}`}
-                    >
-                        {content}
-                    </div>
-                )
-            })}
-        </div>
+                    return (
+                        <div
+                            className="hidden-letter-box"
+                            key={`hidden-letter-${index}`}
+                        >
+                            {content}
+                        </div>
+                    )
+                })}
+            </div>
+        </>
     );
 };
 

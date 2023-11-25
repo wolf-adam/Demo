@@ -1,0 +1,12 @@
+.win {
+    color: limegreen;
+}
+
+.lose {
+    color: lightcoral;
+}
+
+.win,
+.lose {
+    font-weight: bold;
+}

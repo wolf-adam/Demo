@@ -1,8 +1,7 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import { MAX_TRIES, Status } from "../constants/constant";
+import { makeUniqueArray } from "../utils";
 import alphabet from '../data/alphabet.json'
-
-export const GlobalContext = createContext();
 
 const reducer = (state, action) => {
     if (action.type === 'clicked') {
@@ -29,7 +28,7 @@ const reducer = (state, action) => {
 
         return {
             letters: resetedLetters,
-            tries: state.tries,
+            tries: action.value,
         };
     }
     if (action.type === 'reset') {
@@ -46,10 +45,16 @@ const reducer = (state, action) => {
     throw Error('Unknown action.');
 }
 
+export const GlobalContext = createContext();
+
 const GlobalProvider = ({ children }) => {
     const letters = alphabet;
     const enhancedLetters = letters.map(letter => ({ value: letter, clicked: false }))
-    // TODO: Change tries to guesses
+    /** 
+     * TODO: 
+     *  - Change tries to guesses
+     *  - add 'gaveUp' boolean to better UX(?)
+     * */
     const [state, dispatch] = useReducer(reducer, {
         letters: enhancedLetters,
         tries: [],
@@ -59,16 +64,25 @@ const GlobalProvider = ({ children }) => {
     const [word, setWord] = useState('')
 
     // Calculate if there is more guessing available
-    const uniqueWordArray = [...new Set(word.split(''))];
     const hasChance = state.tries.length < MAX_TRIES;
 
     // Check if every letter is guesssed
+    const wordArray = word.split('');
+    const uniqueWordArray = makeUniqueArray(wordArray)
     const boolWordArray = uniqueWordArray.map(letter => state.tries.includes(letter))
     const allLettersAreGuessed = boolWordArray.every(boolValue => boolValue === true)
 
     useEffect(() => {
-        if (word.length !== 0 && (!hasChance || allLettersAreGuessed)) dispatch({ type: 'end_game' })
-    }, [state.tries]);
+        if (word.length !== 0 && (!hasChance || allLettersAreGuessed)) {
+            dispatch({ type: 'end_game', value: uniqueWordArray })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hasChance]);
+
+    useEffect(() => {
+        if (status === Status.END) dispatch({ type: 'end_game', value: uniqueWordArray })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [status])
 
     return (
         <GlobalContext.Provider value={{
@@ -77,6 +91,7 @@ const GlobalProvider = ({ children }) => {
             status,
             setStatus,
             word,
+            wordArray,
             setWord,
             hasChance,
             allLettersAreGuessed

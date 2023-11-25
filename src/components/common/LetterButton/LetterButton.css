@@ -3,11 +3,21 @@
     height: 2.5rem;
 }
 
+.length-button {
+    width: 5rem;
+    height: 5rem;
+    font-size: x-large;
+}
+
 .bold {
     font-weight: bold;
 }
 
 .selected {
     border: 2px solid red;
-    box-shadow: 5px 5px lightcoral;
+    box-shadow: 5px 5px lightpink;
+}
+
+.selected:hover {
+    background-color: #f08080A0;
 }
