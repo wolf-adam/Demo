@@ -3,6 +3,12 @@
     height: 2.5rem;
 }
 
+.length-button {
+    width: 5rem;
+    height: 5rem;
+    font-size: x-large;
+}
+
 .bold {
     font-weight: bold;
 }

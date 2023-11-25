@@ -18,6 +18,7 @@ const LetterButtonGroup = () => {
                             dispatch({ type: 'clicked', value: letter.value })
                     }}
                     disabled={letter.clicked}
+                    isLetter
                 />
             ))}
         </div>
