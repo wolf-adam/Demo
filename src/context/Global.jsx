@@ -3,8 +3,6 @@ import { MAX_TRIES, Status } from "../constants/constant";
 import { makeUniqueArray } from "../utils";
 import alphabet from '../data/alphabet.json'
 
-export const GlobalContext = createContext();
-
 const reducer = (state, action) => {
     if (action.type === 'clicked') {
         const index = state.letters.findIndex(element => element.value === action.value)
@@ -46,6 +44,8 @@ const reducer = (state, action) => {
     }
     throw Error('Unknown action.');
 }
+
+export const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
     const letters = alphabet;
