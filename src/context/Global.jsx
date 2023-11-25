@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import { MAX_TRIES, Status } from "../constants/constant";
+import { makeUniqueArray } from "../utils";
 import alphabet from '../data/alphabet.json'
 
 export const GlobalContext = createContext();
@@ -59,10 +60,11 @@ const GlobalProvider = ({ children }) => {
     const [word, setWord] = useState('')
 
     // Calculate if there is more guessing available
-    const uniqueWordArray = [...new Set(word.split(''))];
     const hasChance = state.tries.length < MAX_TRIES;
 
     // Check if every letter is guesssed
+    const wordArray = word.split('');
+    const uniqueWordArray = makeUniqueArray(wordArray)
     const boolWordArray = uniqueWordArray.map(letter => state.tries.includes(letter))
     const allLettersAreGuessed = boolWordArray.every(boolValue => boolValue === true)
 

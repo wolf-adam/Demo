@@ -1,12 +1,13 @@
 import { useContext } from "react";
 
 import { GlobalContext } from "../../context/Global";
+import { makeUniqueArray } from "../../utils";
 import wordsFromFile from '../../data/hangman_words.json'
 import LetterButton from "../common/LetterButton/LetterButton";
 import './WordChooser.css';
 
 const WordChooser = () => {
-    const wordsLength = [...new Set(wordsFromFile.map(word => word.length))];
+    const wordsLength = makeUniqueArray(wordsFromFile.map(word => word.length));
     const { word, setWord } = useContext(GlobalContext);
 
     const getRandomWord = length => {
