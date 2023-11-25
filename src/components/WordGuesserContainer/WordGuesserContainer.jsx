@@ -12,7 +12,7 @@ const WordGuesserContainer = () => {
             <ResultPanel />
             <div className='word-letter-button-group'>
                 {wordArray.map((letter, index) => {
-                    const letterIsGuessed = state.tries.find(triedLetter => triedLetter === letter)
+                    const letterIsGuessed = state.guesses.find(triedLetter => triedLetter === letter)
                     const content = letterIsGuessed ? letter : '';
 
                     return (
