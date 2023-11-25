@@ -79,6 +79,7 @@ const GlobalProvider = ({ children }) => {
             status,
             setStatus,
             word,
+            wordArray,
             setWord,
             hasChance,
             allLettersAreGuessed

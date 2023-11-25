@@ -1,21 +1,15 @@
 import { useContext } from "react";
 
 import { GlobalContext } from "../../context/Global";
+import ResultPanel from "../ResultPanel/ResultPanel";
 import './WordGuesserContainer.css';
 
 const WordGuesserContainer = () => {
-    const { state, word, hasChance, allLettersAreGuessed } = useContext(GlobalContext);
-
-    // Create an array of the word
-    const wordArray = word.split('');
-
-    let result;
-    if (hasChance && allLettersAreGuessed) result = 'You win!'
-    else if (!hasChance && !allLettersAreGuessed) result = "You lost! :'("
+    const { state, wordArray } = useContext(GlobalContext);
 
     return (
         <>
-            <p>{result}</p>
+            <ResultPanel />
             <div className='word-letter-button-group'>
                 {wordArray.map((letter, index) => {
                     const letterIsGuessed = state.tries.find(triedLetter => triedLetter === letter)
