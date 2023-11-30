@@ -1,9 +1,3 @@
----
-name: PR summary
-about: Summarise the PR's changes
-
----
-
 **Related issue**
 - #1
 
