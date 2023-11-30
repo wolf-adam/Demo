@@ -7,6 +7,7 @@ import './WordGuesserContainer.css';
 const WordGuesserContainer = () => {
     const { state, wordArray } = useContext(GlobalContext);
 
+
     return (
         <>
             <ResultPanel />
