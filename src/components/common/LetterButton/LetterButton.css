@@ -14,10 +14,10 @@
 }
 
 .selected {
-    border: 2px solid red;
-    box-shadow: 5px 5px lightpink;
+    border: 2px solid lightgrey;
+    background-color: lightgrey;
 }
 
 .selected:hover {
-    background-color: #f08080A0;
+    border: 2px solid black;
 }
