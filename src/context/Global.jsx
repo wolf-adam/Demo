@@ -66,10 +66,8 @@ const GlobalProvider = ({ children }) => {
     const hasChance = state.guesses.length < MAX_TRIES;
 
     // Check if every letter is guesssed
-    const wordArray = word.split('');
-    const uniqueWordArray = makeUniqueArray(wordArray)
-    const boolWordArray = uniqueWordArray.map(letter => state.guesses.includes(letter))
-    const allLettersAreGuessed = boolWordArray.every(boolValue => boolValue === true)
+    const wordLetters = word.split('');
+    const uniqueLetters = makeUniqueArray(wordLetters)
 
     useEffect(() => {
         if (word.length !== 0 && (!hasChance || allLettersAreGuessed)) {
@@ -90,9 +88,8 @@ const GlobalProvider = ({ children }) => {
             status,
             setStatus,
             word,
-            wordArray,
             setWord,
-            hasChance,
+            wordLetters,
             allLettersAreGuessed
         }} >
             {children}
