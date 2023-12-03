@@ -7,14 +7,14 @@ import LetterButton from "../common/LetterButton/LetterButton";
 import './WordChooser.css';
 
 const WordChooser = () => {
-    const wordsLength = makeUniqueArray(wordsFromFile.map(word => word.length));
     const { word, setWord } = useContext(GlobalContext);
+    const wordsLength = makeUniqueArray(wordsFromFile.map(word => word.length));
 
-    const getRandomWord = length => {
+    const setRandomWordByLength = length => {
         const filteredWordsArray = wordsFromFile.filter(word => word.length === length)
         const randomIndex = Math.floor(Math.random() * filteredWordsArray.length)
 
-        return filteredWordsArray[randomIndex];
+        setWord(filteredWordsArray[randomIndex]);
     }
 
     return (
@@ -24,7 +24,7 @@ const WordChooser = () => {
                     key={length}
                     selected={word.length === length}
                     text={length}
-                    onClick={() => setWord(getRandomWord(length))}
+                    onClick={() => setRandomWordByLength(length)}
                 />
             ))}
         </div>

@@ -11,7 +11,7 @@ const NavBar = () => {
         <div className="navbar">
             <div className="navbar-item" onClick={() => setStatus(Status.INSTRUCTIONS)}>
                 <p>
-                    {status === Status.NEW_GAME && "instructions ->".toUpperCase()}
+                    {status === Status.NEW && "instructions ->".toUpperCase()}
                 </p>
             </div>
         </div>

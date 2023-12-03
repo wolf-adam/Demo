@@ -1,14 +1,24 @@
 import { createContext, useEffect, useReducer, useState } from "react";
-import { MAX_TRIES, Status } from "../constants/constant";
+import { MAX_TRIES, Result, Status } from "../constants/constant";
 import { makeUniqueArray } from "../utils";
 import alphabet from '../data/alphabet.json'
 
 const reducer = (state, action) => {
-    if (action.type === 'clicked') {
-        const index = state.letters.findIndex(element => element.value === action.value)
+    const setAllButtonClicked = (clicked) => state.letters.map(element => ({
+        value: element.value,
+        clicked
+    }));
 
-        // Modify state
+    if (action.type === 'clicked') {
+        const index = state.letters.findIndex(element => element.value === action.value.letter)
+
+        // Disable clicked letter's box
         state.letters[index].clicked = true;
+
+        // Check if the letter can be found inside the word
+        let guessesLeft;
+        if (action.value.wordLetters.includes(action.value.letter)) guessesLeft = state.guessesLeft;
+        else guessesLeft = state.guessesLeft - 1;
 
         return {
             letters: [
@@ -16,30 +26,26 @@ const reducer = (state, action) => {
             ],
             guesses: [
                 ...state.guesses,
-                action.value
-            ]
+                action.value.letter
+            ],
+            guessesLeft,
+            result: state.result
         };
     }
     if (action.type === 'end_game') {
-        const resetedLetters = state.letters.map(element => ({
-            value: element.value,
-            clicked: true
-        }))
-
         return {
-            letters: resetedLetters,
-            guesses: action.value,
+            letters: setAllButtonClicked(true),
+            guesses: action.value.uniqueLetters,
+            guessesLeft: state.guessesLeft,
+            result: action.value.result
         };
     }
     if (action.type === 'reset') {
-        const resetedLetters = state.letters.map(element => ({
-            value: element.value,
-            clicked: false
-        }))
-
         return {
-            letters: resetedLetters,
-            guesses: []
+            letters: setAllButtonClicked(false),
+            guesses: [],
+            guessesLeft: MAX_TRIES,
+            result: Result.LOSE,
         };
     }
     throw Error('Unknown action.');
@@ -48,40 +54,59 @@ const reducer = (state, action) => {
 export const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
-    const letters = alphabet;
-    const enhancedLetters = letters.map(letter => ({ value: letter, clicked: false }))
-    /** 
-     * TODO: 
-     *  - add 'gaveUp' boolean to better UX(?)
-     * */
+    const enhancedLetters = alphabet.map(letter => ({ value: letter, clicked: false }))
     const [state, dispatch] = useReducer(reducer, {
         letters: enhancedLetters,
         guesses: [],
+        guessesLeft: MAX_TRIES,
+        result: Result.LOSE,
     })
-    // TODO: Get default status from localStorage
     const [status, setStatus] = useState(Status.START)
     const [word, setWord] = useState('')
 
-    // Calculate if there is more guessing available
-    const hasChance = state.guesses.length < MAX_TRIES;
+    // Set values from localStorage
 
     // Check if every letter is guesssed
-    const wordArray = word.split('');
-    const uniqueWordArray = makeUniqueArray(wordArray)
-    const boolWordArray = uniqueWordArray.map(letter => state.guesses.includes(letter))
-    const allLettersAreGuessed = boolWordArray.every(boolValue => boolValue === true)
+    const wordLetters = word.split('');
+    const uniqueLetters = makeUniqueArray(wordLetters)
 
+    // User gave up game
     useEffect(() => {
-        if (word.length !== 0 && (!hasChance || allLettersAreGuessed)) {
-            dispatch({ type: 'end_game', value: uniqueWordArray })
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hasChance]);
-
-    useEffect(() => {
-        if (status === Status.END) dispatch({ type: 'end_game', value: uniqueWordArray })
+        if (status === Status.END) dispatch({
+            type: 'end_game', value: {
+                result: Result.LOSE,
+                uniqueLetters
+            }
+        })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
+
+    const areAllLettersGuessed = () => {
+        if (!uniqueLetters.length) return false;
+
+        // Check unique word letters if they are already guessed or not
+        const boolLettersArray = uniqueLetters.map(letter => state.guesses.includes(letter))
+
+        return boolLettersArray.every(boolValue => boolValue === true);
+    }
+
+    const guessedWordCorrectly = state.guessesLeft && areAllLettersGuessed();
+    const hasGameEnded = !state.guessesLeft || guessedWordCorrectly;
+
+    // Check if there are any guess opportunities left or the game should end
+    useEffect(() => {
+        // Check if word was selected
+        // AND user did not give up
+        if (word.length !== 0 && status !== Status.END && hasGameEnded) {
+            dispatch({
+                type: 'end_game', value: {
+                    result: guessedWordCorrectly,
+                    uniqueLetters
+                }
+            })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hasGameEnded]);
 
     return (
         <GlobalContext.Provider value={{
@@ -90,10 +115,9 @@ const GlobalProvider = ({ children }) => {
             status,
             setStatus,
             word,
-            wordArray,
             setWord,
-            hasChance,
-            allLettersAreGuessed
+            wordLetters,
+            hasGameEnded,
         }} >
             {children}
         </GlobalContext.Provider >

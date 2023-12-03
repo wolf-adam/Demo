@@ -12,8 +12,7 @@ const FooterButtonGroup = () => {
     setStatus,
     word,
     setWord,
-    hasChance,
-    allLettersAreGuessed,
+    hasGameEnded,
   } = useContext(GlobalContext)
 
   let buttons;
@@ -23,13 +22,17 @@ const FooterButtonGroup = () => {
         {
           text: "let's play",
           inverted: true,
-          onClick: () => setStatus(Status.NEW_GAME),
+          onClick: () => setStatus(Status.NEW),
           disabled: !word,
         }
       ]
       break;
     case Status.INSTRUCTIONS:
-      buttons = [{ text: "got it", inverted: true, onClick: () => setStatus(Status.NEW_GAME) }]
+      buttons = [{
+        text: "got it",
+        inverted: true,
+        onClick: () => setStatus(Status.NEW)
+      }]
       break;
     default:
       buttons = [
@@ -37,7 +40,7 @@ const FooterButtonGroup = () => {
           text: "end game",
           inverted: false,
           onClick: () => setStatus(Status.END),
-          disabled: !hasChance || allLettersAreGuessed
+          disabled: hasGameEnded
         },
         {
           text: "start new game",
