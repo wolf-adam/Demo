@@ -5,7 +5,12 @@ import LetterButton from "../common/LetterButton/LetterButton";
 import './LetterButtonGroup.css';
 
 const LetterButtonGroup = () => {
-    const { state, dispatch } = useContext(GlobalContext);
+    const { state, wordLetters, dispatch } = useContext(GlobalContext);
+
+    const onClickHandler = letter => {
+        if (!letter.clicked)
+            dispatch({ type: 'clicked', value: { letter: letter.value, wordLetters } })
+    }
 
     return (
         <div className='letter-button-group'>
@@ -13,10 +18,7 @@ const LetterButtonGroup = () => {
                 <LetterButton
                     key={letter.value}
                     text={letter.value}
-                    onClick={() => {
-                        if (!letter.clicked)
-                            dispatch({ type: 'clicked', value: letter.value })
-                    }}
+                    onClick={() => onClickHandler(letter)}
                     disabled={letter.clicked}
                     isLetter
                 />

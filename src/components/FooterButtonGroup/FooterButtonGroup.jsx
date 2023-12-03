@@ -12,8 +12,7 @@ const FooterButtonGroup = () => {
     setStatus,
     word,
     setWord,
-    hasChance,
-    allLettersAreGuessed,
+    hasGameEnded,
   } = useContext(GlobalContext)
 
   let buttons;
@@ -41,7 +40,7 @@ const FooterButtonGroup = () => {
           text: "end game",
           inverted: false,
           onClick: () => setStatus(Status.END),
-          disabled: !hasChance || allLettersAreGuessed
+          disabled: hasGameEnded
         },
         {
           text: "start new game",

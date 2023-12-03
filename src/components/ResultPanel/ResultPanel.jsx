@@ -4,20 +4,11 @@ import { GlobalContext } from "../../context/Global";
 import './ResultPanel.css';
 
 const ResultPanel = () => {
-    const { hasChance, allLettersAreGuessed } = useContext(GlobalContext);
+    const { hasGameEnded, state } = useContext(GlobalContext);
 
-    // TODO: Outsource logic here
-    let result;
-    let className = "win";
-    if (hasChance && allLettersAreGuessed) result = "You won!"
-    else if (!hasChance && !allLettersAreGuessed) {
-        result = "You lost!"
-        className = "lose";
-    }
+    if (!hasGameEnded) return null;
 
-    if (!result) return null;
-
-    return <p className={className}>{result}</p>;
+    return <p className={state.result ? 'win' : 'lose'}>{state.result ? "You won!" : "You lost!"}</p>;
 };
 
 export default ResultPanel;

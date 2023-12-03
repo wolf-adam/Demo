@@ -6,6 +6,11 @@ const Status = {
     'END': 'end'
 }
 
+const Result = {
+    "LOSE": false,
+    "WIN": true,
+}
+
 const MAX_TRIES = 10;
 
-export { Status, MAX_TRIES }
+export { Status, Result, MAX_TRIES }
