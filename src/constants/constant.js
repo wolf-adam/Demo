@@ -19,10 +19,14 @@ const ActionType = {
 }
 
 const MAX_TRIES = 10;
+const CONTENT_ITEM_NAME = 'hang_game.content';
+const WORD_ITEM_NAME = 'hang_game.word';
 
 export {
     Status,
     Result,
     ActionType,
     MAX_TRIES,
+    CONTENT_ITEM_NAME,
+    WORD_ITEM_NAME,
 };

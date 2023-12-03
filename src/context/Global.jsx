@@ -1,7 +1,22 @@
 import { createContext, useEffect, useReducer, useState } from "react";
-import { MAX_TRIES, Result, Status } from "../constants/constant";
+import {
+    ActionType,
+    Result,
+    Status,
+    MAX_TRIES,
+    CONTENT_ITEM_NAME,
+    WORD_ITEM_NAME,
+} from "../constants/constant";
 import { makeUniqueArray } from "../utils";
 import alphabet from '../data/alphabet.json'
+
+const enhancedLetters = alphabet.map(letter => ({ value: letter, clicked: false }))
+const defaultState = {
+    letters: enhancedLetters,
+    guesses: [],
+    guessesLeft: MAX_TRIES,
+    result: Result.LOSE,
+};
 
 const reducer = (state, action) => {
     const setAllButtonClicked = (clicked) => state.letters.map(element => ({
@@ -20,7 +35,7 @@ const reducer = (state, action) => {
         if (action.value.wordLetters.includes(action.value.letter)) guessesLeft = state.guessesLeft;
         else guessesLeft = state.guessesLeft - 1;
 
-        return {
+        const setObject = {
             letters: [
                 ...state.letters,
             ],
@@ -30,9 +45,17 @@ const reducer = (state, action) => {
             ],
             guessesLeft,
             result: state.result
-        };
+        }
+
+        // Update local storage also
+        localStorage.setItem(CONTENT_ITEM_NAME, JSON.stringify(setObject))
+
+        return setObject;
     }
     if (action.type === ActionType.END_GAME) {
+        // Clear local storage
+        localStorage.clear()
+
         return {
             letters: setAllButtonClicked(true),
             guesses: action.value.uniqueLetters,
@@ -41,6 +64,9 @@ const reducer = (state, action) => {
         };
     }
     if (action.type === ActionType.RESET) {
+        // Clear local storage
+        localStorage.clear()
+
         return {
             letters: setAllButtonClicked(false),
             guesses: [],
@@ -49,6 +75,16 @@ const reducer = (state, action) => {
         };
     }
     if (action.type === ActionType.SET) {
+        let setObject;
+
+        // Check if item exists
+        const item = JSON.parse(localStorage.getItem(CONTENT_ITEM_NAME));
+
+        // If not set default state
+        if (item !== null) setObject = item;
+        else setObject = defaultState;
+
+        return setObject;
     }
     throw Error('Unknown action.');
 }
@@ -56,31 +92,35 @@ const reducer = (state, action) => {
 export const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
-    const enhancedLetters = alphabet.map(letter => ({ value: letter, clicked: false }))
-    const [state, dispatch] = useReducer(reducer, {
-        letters: enhancedLetters,
-        guesses: [],
-        guessesLeft: MAX_TRIES,
-        result: Result.LOSE,
-    })
+    const [state, dispatch] = useReducer(reducer, defaultState)
     const [status, setStatus] = useState(Status.START)
     const [word, setWord] = useState('')
 
-    // Set values from localStorage
+    // Set values from localStorage on mount
+    useEffect(() => {
+        dispatch({ type: ActionType.SET })
+
+        // Get word from local storage and set it (if it exists)
+        const storageWord = localStorage.getItem(WORD_ITEM_NAME);
+        if (storageWord) {
+            setStatus(Status.RESUME);
+            setWord(storageWord);
+        }
+    }, []);
 
     // Check if every letter is guesssed
     const wordLetters = word.split('');
     const uniqueLetters = makeUniqueArray(wordLetters)
 
     useEffect(() => {
-    // User gave up game
+        // User gave up game
         if (status === Status.END)
             dispatch({
                 type: ActionType.END_GAME, value: {
-                result: Result.LOSE,
-                uniqueLetters
-            }
-        })
+                    result: Result.LOSE,
+                    uniqueLetters
+                }
+            })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
 
