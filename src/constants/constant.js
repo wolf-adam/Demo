@@ -11,6 +11,18 @@ const Result = {
     "WIN": true,
 }
 
+const ActionType = {
+    "CLICKED": "clicked",
+    "SET": "set",
+    "RESET": "reset",
+    "END_GAME": "end_game",
+}
+
 const MAX_TRIES = 10;
 
-export { Status, Result, MAX_TRIES }
+export {
+    Status,
+    Result,
+    ActionType,
+    MAX_TRIES,
+};

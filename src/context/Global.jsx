@@ -9,7 +9,7 @@ const reducer = (state, action) => {
         clicked
     }));
 
-    if (action.type === 'clicked') {
+    if (action.type === ActionType.CLICKED) {
         const index = state.letters.findIndex(element => element.value === action.value.letter)
 
         // Disable clicked letter's box
@@ -32,7 +32,7 @@ const reducer = (state, action) => {
             result: state.result
         };
     }
-    if (action.type === 'end_game') {
+    if (action.type === ActionType.END_GAME) {
         return {
             letters: setAllButtonClicked(true),
             guesses: action.value.uniqueLetters,
@@ -40,13 +40,15 @@ const reducer = (state, action) => {
             result: action.value.result
         };
     }
-    if (action.type === 'reset') {
+    if (action.type === ActionType.RESET) {
         return {
             letters: setAllButtonClicked(false),
             guesses: [],
             guessesLeft: MAX_TRIES,
             result: Result.LOSE,
         };
+    }
+    if (action.type === ActionType.SET) {
     }
     throw Error('Unknown action.');
 }
@@ -70,10 +72,11 @@ const GlobalProvider = ({ children }) => {
     const wordLetters = word.split('');
     const uniqueLetters = makeUniqueArray(wordLetters)
 
-    // User gave up game
     useEffect(() => {
-        if (status === Status.END) dispatch({
-            type: 'end_game', value: {
+    // User gave up game
+        if (status === Status.END)
+            dispatch({
+                type: ActionType.END_GAME, value: {
                 result: Result.LOSE,
                 uniqueLetters
             }
@@ -99,7 +102,7 @@ const GlobalProvider = ({ children }) => {
         // AND user did not give up
         if (word.length !== 0 && status !== Status.END && hasGameEnded) {
             dispatch({
-                type: 'end_game', value: {
+                type: ActionType.END_GAME, value: {
                     result: guessedWordCorrectly,
                     uniqueLetters
                 }
