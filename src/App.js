@@ -1,7 +1,7 @@
 import Content from './components/Content/Content';
 import FooterButtonGroup from './components/FooterButtonGroup/FooterButtonGroup';
-import './App.css';
 import NavBar from './components/Navbar/Navbar';
+import './App.css';
 
 const App = () => {
   return (
