@@ -7,11 +7,13 @@ import "./Navbar.css"
 const NavBar = () => {
     const { status, setStatus } = useContext(GlobalContext)
 
+    const showNavbar = status === Status.NEW || status === Status.RESUME;
+
     return (
         <div className="navbar">
             <div className="navbar-item" onClick={() => setStatus(Status.INSTRUCTIONS)}>
                 <p>
-                    {status === Status.NEW && "instructions ->".toUpperCase()}
+                    {showNavbar && "instructions ->".toUpperCase()}
                 </p>
             </div>
         </div>
