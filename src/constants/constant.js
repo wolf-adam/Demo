@@ -1,7 +1,7 @@
 const Status = {
     'START': 'start',
     'INSTRUCTIONS': 'instructions',
-    'NEW_GAME': 'new game',
+    'NEW': 'new',
     'RESUME': 'resume',
     'END': 'end'
 }

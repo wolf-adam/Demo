@@ -23,13 +23,17 @@ const FooterButtonGroup = () => {
         {
           text: "let's play",
           inverted: true,
-          onClick: () => setStatus(Status.NEW_GAME),
+          onClick: () => setStatus(Status.NEW),
           disabled: !word,
         }
       ]
       break;
     case Status.INSTRUCTIONS:
-      buttons = [{ text: "got it", inverted: true, onClick: () => setStatus(Status.NEW_GAME) }]
+      buttons = [{
+        text: "got it",
+        inverted: true,
+        onClick: () => setStatus(Status.NEW)
+      }]
       break;
     default:
       buttons = [
