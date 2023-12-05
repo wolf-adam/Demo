@@ -13,7 +13,6 @@ const Result = {
 
 const ActionType = {
     "CLICKED": "clicked",
-    "SET": "set",
     "RESET": "reset",
     "END_GAME": "end_game",
 }

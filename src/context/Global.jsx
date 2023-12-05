@@ -74,39 +74,19 @@ const reducer = (state, action) => {
             result: Result.LOSE,
         };
     }
-    if (action.type === ActionType.SET) {
-        let setObject;
-
-        // Check if item exists
-        const item = JSON.parse(localStorage.getItem(CONTENT_ITEM_NAME));
-
-        // If not set default state
-        if (item !== null) setObject = item;
-        else setObject = defaultState;
-
-        return setObject;
-    }
     throw Error('Unknown action.');
 }
 
 export const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, defaultState)
-    const [status, setStatus] = useState(Status.START)
-    const [word, setWord] = useState('')
-
-    // Set values from localStorage on mount
-    useEffect(() => {
-        dispatch({ type: ActionType.SET })
-
-        // Get word from local storage and set it (if it exists)
+    // Get word and state from local storage and set them (if they exist)
         const storageWord = localStorage.getItem(WORD_ITEM_NAME);
-        if (storageWord) {
-            setStatus(Status.RESUME);
-            setWord(storageWord);
-        }
-    }, []);
+    const storageState = JSON.parse(localStorage.getItem(CONTENT_ITEM_NAME));
+
+    const [state, dispatch] = useReducer(reducer, storageState || defaultState)
+    const [status, setStatus] = useState(storageWord ? Status.RESUME : Status.START)
+    const [word, setWord] = useState(storageWord || '')
 
     // Check if every letter is guesssed
     const wordLetters = word.split('');
