@@ -2,9 +2,10 @@ import { useContext } from "react";
 
 import { GlobalContext } from "../../context/Global";
 import { Status } from "../../constants/constant";
-import WordGuesserContainer from "../WordGuesserContainer/WordGuesserContainer";
-import WordChooser from "../WordChooser/WordChooser";
-import LetterButtonGroup from "../LetterButtonGroup/LetterButtonGroup";
+import WordGuesserContainer from "./WordGuesserContainer/WordGuesserContainer";
+import LetterButtonGroup from "./LetterButtonGroup/LetterButtonGroup";
+import WordChooser from "./WordChooser/WordChooser";
+import ResultPanel from "./ResultPanel/ResultPanel";
 
 const Content = () => {
     const { status, word, shouldGameStart } = useContext(GlobalContext)
@@ -12,6 +13,7 @@ const Content = () => {
     if ((word && shouldGameStart) || status === Status.END) {
         return (
             <>
+                <ResultPanel />
                 <WordGuesserContainer />
                 <LetterButtonGroup />
             </>
