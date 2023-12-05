@@ -81,7 +81,7 @@ export const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
     // Get word and state from local storage and set them (if they exist)
-        const storageWord = localStorage.getItem(WORD_ITEM_NAME);
+    const storageWord = localStorage.getItem(WORD_ITEM_NAME);
     const storageState = JSON.parse(localStorage.getItem(CONTENT_ITEM_NAME));
 
     const [state, dispatch] = useReducer(reducer, storageState || defaultState)
@@ -137,6 +137,7 @@ const GlobalProvider = ({ children }) => {
             dispatch,
             status,
             setStatus,
+            shouldGameStart: status === Status.NEW || status === Status.RESUME,
             word,
             setWord,
             wordLetters,

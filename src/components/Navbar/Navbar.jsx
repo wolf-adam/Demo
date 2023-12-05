@@ -5,9 +5,7 @@ import { Status } from "../../constants/constant";
 import "./Navbar.css"
 
 const NavBar = () => {
-    const { status, setStatus } = useContext(GlobalContext)
-
-    const showNavbar = status === Status.NEW || status === Status.RESUME;
+    const { setStatus, shouldGameStart: showNavbar } = useContext(GlobalContext)
 
     return (
         <div className="navbar">
