@@ -17,7 +17,7 @@ const ActionType = {
     "END_GAME": "end_game",
 }
 
-const MAX_TRIES = 10;
+const MAX_TRIES = 6;
 const CONTENT_ITEM_NAME = 'hang_game.content';
 const WORD_ITEM_NAME = 'hang_game.word';
 
