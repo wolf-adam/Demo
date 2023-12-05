@@ -11,6 +11,21 @@ const Result = {
     "WIN": true,
 }
 
-const MAX_TRIES = 10;
+const ActionType = {
+    "CLICKED": "clicked",
+    "RESET": "reset",
+    "END_GAME": "end_game",
+}
 
-export { Status, Result, MAX_TRIES }
+const MAX_TRIES = 10;
+const CONTENT_ITEM_NAME = 'hang_game.content';
+const WORD_ITEM_NAME = 'hang_game.word';
+
+export {
+    Status,
+    Result,
+    ActionType,
+    MAX_TRIES,
+    CONTENT_ITEM_NAME,
+    WORD_ITEM_NAME,
+};

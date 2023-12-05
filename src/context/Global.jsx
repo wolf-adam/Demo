@@ -1,7 +1,22 @@
 import { createContext, useEffect, useReducer, useState } from "react";
-import { MAX_TRIES, Result, Status } from "../constants/constant";
+import {
+    ActionType,
+    Result,
+    Status,
+    MAX_TRIES,
+    CONTENT_ITEM_NAME,
+    WORD_ITEM_NAME,
+} from "../constants/constant";
 import { makeUniqueArray } from "../utils";
 import alphabet from '../data/alphabet.json'
+
+const enhancedLetters = alphabet.map(letter => ({ value: letter, clicked: false }))
+const defaultState = {
+    letters: enhancedLetters,
+    guesses: [],
+    guessesLeft: MAX_TRIES,
+    result: Result.LOSE,
+};
 
 const reducer = (state, action) => {
     const setAllButtonClicked = (clicked) => state.letters.map(element => ({
@@ -9,7 +24,7 @@ const reducer = (state, action) => {
         clicked
     }));
 
-    if (action.type === 'clicked') {
+    if (action.type === ActionType.CLICKED) {
         const index = state.letters.findIndex(element => element.value === action.value.letter)
 
         // Disable clicked letter's box
@@ -20,7 +35,7 @@ const reducer = (state, action) => {
         if (action.value.wordLetters.includes(action.value.letter)) guessesLeft = state.guessesLeft;
         else guessesLeft = state.guessesLeft - 1;
 
-        return {
+        const setObject = {
             letters: [
                 ...state.letters,
             ],
@@ -30,9 +45,17 @@ const reducer = (state, action) => {
             ],
             guessesLeft,
             result: state.result
-        };
+        }
+
+        // Update local storage also
+        localStorage.setItem(CONTENT_ITEM_NAME, JSON.stringify(setObject))
+
+        return setObject;
     }
-    if (action.type === 'end_game') {
+    if (action.type === ActionType.END_GAME) {
+        // Clear local storage
+        localStorage.clear()
+
         return {
             letters: setAllButtonClicked(true),
             guesses: action.value.uniqueLetters,
@@ -40,7 +63,10 @@ const reducer = (state, action) => {
             result: action.value.result
         };
     }
-    if (action.type === 'reset') {
+    if (action.type === ActionType.RESET) {
+        // Clear local storage
+        localStorage.clear()
+
         return {
             letters: setAllButtonClicked(false),
             guesses: [],
@@ -54,30 +80,27 @@ const reducer = (state, action) => {
 export const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
-    const enhancedLetters = alphabet.map(letter => ({ value: letter, clicked: false }))
-    const [state, dispatch] = useReducer(reducer, {
-        letters: enhancedLetters,
-        guesses: [],
-        guessesLeft: MAX_TRIES,
-        result: Result.LOSE,
-    })
-    const [status, setStatus] = useState(Status.START)
-    const [word, setWord] = useState('')
+    // Get word and state from local storage and set them (if they exist)
+    const storageWord = localStorage.getItem(WORD_ITEM_NAME);
+    const storageState = JSON.parse(localStorage.getItem(CONTENT_ITEM_NAME));
 
-    // Set values from localStorage
+    const [state, dispatch] = useReducer(reducer, storageState || defaultState)
+    const [status, setStatus] = useState(storageWord ? Status.RESUME : Status.START)
+    const [word, setWord] = useState(storageWord || '')
 
     // Check if every letter is guesssed
     const wordLetters = word.split('');
     const uniqueLetters = makeUniqueArray(wordLetters)
 
-    // User gave up game
     useEffect(() => {
-        if (status === Status.END) dispatch({
-            type: 'end_game', value: {
-                result: Result.LOSE,
-                uniqueLetters
-            }
-        })
+        // User gave up game
+        if (status === Status.END)
+            dispatch({
+                type: ActionType.END_GAME, value: {
+                    result: Result.LOSE,
+                    uniqueLetters
+                }
+            })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
 
@@ -99,7 +122,7 @@ const GlobalProvider = ({ children }) => {
         // AND user did not give up
         if (word.length !== 0 && status !== Status.END && hasGameEnded) {
             dispatch({
-                type: 'end_game', value: {
+                type: ActionType.END_GAME, value: {
                     result: guessedWordCorrectly,
                     uniqueLetters
                 }
@@ -114,6 +137,7 @@ const GlobalProvider = ({ children }) => {
             dispatch,
             status,
             setStatus,
+            shouldGameStart: status === Status.NEW || status === Status.RESUME,
             word,
             setWord,
             wordLetters,

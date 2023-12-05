@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { GlobalContext } from "../../context/Global";
-import { Status } from "../../constants/constant";
+import { ActionType, Status } from "../../constants/constant";
 import Button from "../common/Button/Button";
 import './FooterButtonGroup.css';
 
@@ -46,9 +46,9 @@ const FooterButtonGroup = () => {
           text: "start new game",
           inverted: true,
           onClick: () => {
+            dispatch({ type: ActionType.RESET })
             setStatus(Status.START);
             setWord('');
-            dispatch({ type: 'reset' })
           }
         }
       ]

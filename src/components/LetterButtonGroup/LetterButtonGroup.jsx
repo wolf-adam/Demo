@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import { GlobalContext } from "../../context/Global";
+import { ActionType } from "../../constants/constant";
 import LetterButton from "../common/LetterButton/LetterButton";
 import './LetterButtonGroup.css';
 
@@ -9,7 +10,13 @@ const LetterButtonGroup = () => {
 
     const onClickHandler = letter => {
         if (!letter.clicked)
-            dispatch({ type: 'clicked', value: { letter: letter.value, wordLetters } })
+            dispatch({
+                type: ActionType.CLICKED,
+                value: {
+                    letter: letter.value,
+                    wordLetters
+                }
+            })
     }
 
     return (
