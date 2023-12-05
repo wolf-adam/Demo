@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { GlobalContext } from "../../context/Global";
+import { GlobalContext } from "../../../context/Global";
 import './LetterBox.css';
 
 const LetterBox = ({ index, letter }) => {

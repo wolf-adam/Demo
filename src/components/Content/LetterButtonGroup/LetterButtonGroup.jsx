@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import { GlobalContext } from "../../context/Global";
-import { ActionType } from "../../constants/constant";
-import LetterButton from "../common/LetterButton/LetterButton";
+import { GlobalContext } from "../../../context/Global";
+import { ActionType } from "../../../constants/constant";
+import LetterButton from "../../common/LetterButton/LetterButton";
 import './LetterButtonGroup.css';
 
 const LetterButtonGroup = () => {

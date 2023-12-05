@@ -1,11 +1,11 @@
 import { useContext } from "react";
 
-import { GlobalContext } from "../../context/Global";
-import { makeUniqueArray } from "../../utils";
-import wordsFromFile from '../../data/hangman_words.json'
-import LetterButton from "../common/LetterButton/LetterButton";
+import { GlobalContext } from "../../../context/Global";
+import { WORD_ITEM_NAME } from "../../../constants/constant";
+import { makeUniqueArray } from "../../../utils";
+import wordsFromFile from '../../../data/hangman_words.json'
+import LetterButton from "../../common/LetterButton/LetterButton";
 import './WordChooser.css';
-import { WORD_ITEM_NAME } from "../../constants/constant";
 
 const WordChooser = () => {
     const { word, setWord } = useContext(GlobalContext);
