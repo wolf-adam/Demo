@@ -8,7 +8,7 @@ assignees: wolf-adam
 ---
 
 ### Describe your ✨ dream ✨ 
-> Let the kitty know what would you like to see? ≽^•⩊•^≼
+> Let the kitty know what you would like to see ≽^•⩊•^≼
 
 ### Additional context
 Add any other context about the problem here.
