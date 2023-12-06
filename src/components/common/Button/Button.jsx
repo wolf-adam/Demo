@@ -1,4 +1,4 @@
-import './Button.css';
+import styles from './Button.module.css';
 
 const Button = ({
     className,
@@ -7,12 +7,13 @@ const Button = ({
     inverted,
     onClick,
 }) => {
-    const classNames = ['custom-button'];
+    const classNames = [styles.custom];
 
-    // TODO: Do better property adjusting
-    if (inverted) classNames.push('inverted');
+    // Alternative solution: 
+    // - use `classnames` package for +18.8 KB 
+    if (inverted) classNames.push(styles.inverted);
+    if (disabled) classNames.push(styles.disabled);
     if (className) classNames.push(className);
-    if (disabled) classNames.push('disabled');
 
     return (
         <div className={classNames.join(' ')} onClick={onClick}>

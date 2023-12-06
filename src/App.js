@@ -1,16 +1,16 @@
-import Content from './components/Content/Content';
-import FooterButtonGroup from './components/FooterButtonGroup/FooterButtonGroup';
 import NavBar from './components/Navbar/Navbar';
 import Animation from './components/Animation/Animation';
-import './App.css';
+import Content from './components/Content/Content';
+import FooterButtonGroup from './components/FooterButtonGroup/FooterButtonGroup';
+import styles from './App.module.css';
 
 const App = () => {
   return (
-    <div className='App'>
+    <div className={styles.container}>
       <NavBar />
-      <div className='content'>
+      <div className={styles.content}>
         <Animation />
-        <div className='input'>
+        <div className={styles.input}>
           <h1>Hangman '23</h1>
           <Content />
         </div>

@@ -8,8 +8,7 @@
 - Required value saving with `localStorage`
   - to let users continue their unfinished game even after the tab was closed (but the browser wass not)
 - CSS modules usage
-  - TODO ⏳
-  - can avoid classname override
+  - avoid classname clashes
 - API calls
   - TODO ⏳
 - Responsivity

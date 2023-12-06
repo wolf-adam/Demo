@@ -5,7 +5,7 @@ import { WORD_ITEM_NAME } from "../../../constants/constant";
 import { makeUniqueArray } from "../../../utils";
 import wordsFromFile from '../../../data/hangman_words.json'
 import LetterButton from "../../common/LetterButton/LetterButton";
-import './WordChooser.css';
+import styles from './WordChooser.module.css';
 
 const WordChooser = () => {
     const { word, setWord } = useContext(GlobalContext);
@@ -22,7 +22,7 @@ const WordChooser = () => {
     }
 
     return (
-        <div className='letter-button-group'>
+        <div className={styles.container}>
             {wordsLength.map(length => (
                 <LetterButton
                     key={length}

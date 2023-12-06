@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { GlobalContext } from "../../../context/Global";
-import './LetterBox.css';
+import styles from './LetterBox.module.css';
 
 const LetterBox = ({ index, letter }) => {
     const { state } = useContext(GlobalContext);
@@ -11,7 +11,7 @@ const LetterBox = ({ index, letter }) => {
 
     return (
         <div
-            className="hidden-letter-box"
+            className={styles.container}
             key={`hidden-letter-${index}`}
         >
             {foundGuessedLetter()}

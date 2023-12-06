@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../../../context/Global";
 import { ActionType } from "../../../constants/constant";
 import LetterButton from "../../common/LetterButton/LetterButton";
-import './LetterButtonGroup.css';
+import styles from './LetterButtonGroup.module.css';
 
 const LetterButtonGroup = () => {
     const { state, wordLetters, dispatch } = useContext(GlobalContext);
@@ -20,7 +20,7 @@ const LetterButtonGroup = () => {
     }
 
     return (
-        <div className='letter-button-group'>
+        <div className={styles.container}>
             {state.letters.map(letter => (
                 <LetterButton
                     key={letter.value}
