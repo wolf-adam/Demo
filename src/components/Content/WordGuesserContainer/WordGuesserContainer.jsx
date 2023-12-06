@@ -2,13 +2,13 @@ import { useContext } from "react";
 
 import { GlobalContext } from "../../../context/Global";
 import LetterBox from "./LetterBox";
-import './WordGuesserContainer.css';
+import styles from './WordGuesserContainer.module.css';
 
 const WordGuesserContainer = () => {
     const { wordLetters } = useContext(GlobalContext);
 
     return (
-        <div className='word-letter-button-group'>
+        <div className={styles.container}>
             {wordLetters.map((letter, index) =>
                 <LetterBox
                     key={`${letter}-${index}`}

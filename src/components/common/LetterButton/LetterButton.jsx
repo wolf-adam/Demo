@@ -1,11 +1,14 @@
 import Button from '../Button/Button';
-import './LetterButton.css';
+import styles from './LetterButton.module.css';
 
 const LetterButton = ({ disabled, onClick, text, selected, isLetter }) => {
-    let classNames = ['bold'];
-    if (isLetter) classNames.push('letter-button');
-    else classNames.push('length-button');
-    if (selected) classNames.push('selected');
+    let classNames = [styles.bold];
+
+    // Alternative solution: 
+    // - use `classnames` package for +18.8 KB 
+    if (selected) classNames.push(styles.selected);
+    if (isLetter) classNames.push(styles.letter);
+    else classNames.push(styles.length);
 
     return (
         <Button

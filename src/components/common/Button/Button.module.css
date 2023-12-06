@@ -1,4 +1,4 @@
-.custom-button {
+.custom {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,7 +12,7 @@
     font-size: medium;
 }
 
-.custom-button:hover,
+.custom:hover,
 .inverted:hover {
     border: 2px solid black;
 }

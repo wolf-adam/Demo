@@ -2,14 +2,14 @@ import { useContext } from "react";
 
 import { GlobalContext } from "../../context/Global";
 import { Status } from "../../constants/constant";
-import "./Navbar.css"
+import styles from "./Navbar.module.css"
 
 const NavBar = () => {
     const { setStatus, shouldGameStart: showNavbar } = useContext(GlobalContext)
 
     return (
-        <div className="navbar">
-            <div className="navbar-item" onClick={() => setStatus(Status.INSTRUCTIONS)}>
+        <div className={styles.container}>
+            <div className={styles.item} onClick={() => setStatus(Status.INSTRUCTIONS)}>
                 <p>
                     {showNavbar && "instructions ->".toUpperCase()}
                 </p>

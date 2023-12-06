@@ -10,14 +10,6 @@ import {
 import { makeUniqueArray } from "../utils";
 import alphabet from '../data/alphabet.json'
 
-const enhancedLetters = alphabet.map(letter => ({ value: letter, clicked: false }))
-const defaultState = {
-    letters: enhancedLetters,
-    guesses: [],
-    guessesLeft: MAX_TRIES,
-    result: Result.LOSE,
-};
-
 const reducer = (state, action) => {
     const setAllButtonClicked = (clicked) => state.letters.map(element => ({
         value: element.value,
@@ -83,6 +75,14 @@ const GlobalProvider = ({ children }) => {
     // Get word and state from local storage and set them (if they exist)
     const storageWord = localStorage.getItem(WORD_ITEM_NAME);
     const storageState = JSON.parse(localStorage.getItem(CONTENT_ITEM_NAME));
+
+    const enhancedLetters = alphabet.map(letter => ({ value: letter, clicked: false }))
+    const defaultState = {
+        letters: enhancedLetters,
+        guesses: [],
+        guessesLeft: MAX_TRIES,
+        result: Result.LOSE,
+    };
 
     const [state, dispatch] = useReducer(reducer, storageState || defaultState)
     const [status, setStatus] = useState(storageWord ? Status.RESUME : Status.START)

@@ -1,16 +1,16 @@
-.navbar {
+.container {
     display: flex;
     justify-content: flex-end;
     width: 100%;
 }
 
-.navbar-item {
+.item {
     margin-right: 2rem;
     padding: 0.5rem;
     border-radius: 0.25rem;
 }
 
-.navbar-item:hover {
+.item:hover {
     background-color: lightgray;
     cursor: pointer;
 }

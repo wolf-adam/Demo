@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../../context/Global";
 import { ActionType, Status } from "../../constants/constant";
 import Button from "../common/Button/Button";
-import './FooterButtonGroup.css';
+import styles from './FooterButtonGroup.module.css';
 
 const FooterButtonGroup = () => {
   const {
@@ -56,7 +56,7 @@ const FooterButtonGroup = () => {
   }
 
   return (
-    <div className='footer-button-group'>
+    <div className={styles.container}>
       {buttons.map(button => (
         <Button
           key={button.text}
