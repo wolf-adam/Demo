@@ -6,8 +6,6 @@ import { GlobalContext } from '../../context/Global';
 const Animation = () => {
     const { status, state } = useContext(GlobalContext);
 
-    if (status === Status.INSTRUCTIONS) return null;
-
     const size = '10rem';
     const base = [
         { d: "M1,11 h8" },
