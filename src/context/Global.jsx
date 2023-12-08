@@ -104,7 +104,7 @@ const GlobalProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
 
-    const areAllLettersGuessed = () => {
+    const haveAllLettersBeenGuessed = () => {
         if (!uniqueLetters.length) return false;
 
         // Check unique word letters if they are already guessed or not
@@ -113,7 +113,7 @@ const GlobalProvider = ({ children }) => {
         return boolLettersArray.every(boolValue => boolValue === true);
     }
 
-    const guessedWordCorrectly = state.guessesLeft && areAllLettersGuessed();
+    const guessedWordCorrectly = !!state.guessesLeft && haveAllLettersBeenGuessed();
     const hasGameEnded = !state.guessesLeft || guessedWordCorrectly;
 
     // Check if there are any guess opportunities left or the game should end

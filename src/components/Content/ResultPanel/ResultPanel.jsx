@@ -1,18 +1,21 @@
 import { useContext } from "react";
 
 import { GlobalContext } from "../../../context/Global";
+import { Status } from "../../../constants/constant";
 import styles from './ResultPanel.module.css';
 
 const ResultPanel = () => {
-    const { hasGameEnded, state } = useContext(GlobalContext);
+    const { hasGameEnded, state, status } = useContext(GlobalContext);
 
-    if (!hasGameEnded) return null;
+    if (status === Status.START) return null;
 
     return (
-        <p className={state.result ? styles.win : styles.lose}>
-            {state.result ? "You won!" : "You lost!"}
-        </p>
-    );
+        <h2 className={state.result ? styles.win : styles.lose}>
+            {hasGameEnded && (
+                state.result ? "You won!" : "You lost!"
+            )}
+        </h2>
+    )
 };
 
 export default ResultPanel;

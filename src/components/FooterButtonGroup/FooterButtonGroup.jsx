@@ -27,13 +27,6 @@ const FooterButtonGroup = () => {
         }
       ]
       break;
-    case Status.INSTRUCTIONS:
-      buttons = [{
-        text: "got it",
-        inverted: true,
-        onClick: () => setStatus(Status.NEW)
-      }]
-      break;
     default:
       buttons = [
         {

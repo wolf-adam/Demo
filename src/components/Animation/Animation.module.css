@@ -1,0 +1,11 @@
+.image {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+svg {
+    width: 75%;
+    margin: 6rem 2rem 2rem;
+}

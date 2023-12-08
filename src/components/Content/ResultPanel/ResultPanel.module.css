@@ -9,4 +9,5 @@
 .win,
 .lose {
     font-weight: bold;
+    height: 2rem;
 }

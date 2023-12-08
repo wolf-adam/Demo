@@ -1,6 +1,5 @@
 const Status = {
     'START': 'start',
-    'INSTRUCTIONS': 'instructions',
     'NEW': 'new',
     'RESUME': 'resume',
     'END': 'end'
