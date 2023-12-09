@@ -63,7 +63,7 @@ const reducer = (state, action) => {
             letters: setAllButtonClicked(false),
             guesses: [],
             guessesLeft: MAX_TRIES,
-            result: Result.LOSE,
+            result: null,
         };
     }
     throw Error('Unknown action.');
@@ -81,7 +81,7 @@ const GlobalProvider = ({ children }) => {
         letters: enhancedLetters,
         guesses: [],
         guessesLeft: MAX_TRIES,
-        result: Result.LOSE,
+        result: null,
     };
 
     const [state, dispatch] = useReducer(reducer, storageState || defaultState)

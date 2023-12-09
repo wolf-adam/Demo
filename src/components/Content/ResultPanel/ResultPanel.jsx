@@ -11,7 +11,7 @@ const ResultPanel = () => {
 
     return (
         <h2 className={state.result ? styles.win : styles.lose}>
-            {hasGameEnded && (
+                {hasGameEnded && state.result && (
                 state.result ? "You won!" : "You lost!"
             )}
         </h2>
