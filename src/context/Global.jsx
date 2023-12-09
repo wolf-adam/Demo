@@ -119,7 +119,7 @@ const GlobalProvider = ({ children }) => {
     // Check if there are any guess opportunities left or the game should end
     useEffect(() => {
         // Check if word was selected
-        // AND user did not give up
+        // AND player did not give up
         if (word.length !== 0 && status !== Status.END && hasGameEnded) {
             dispatch({
                 type: ActionType.END_GAME, value: {

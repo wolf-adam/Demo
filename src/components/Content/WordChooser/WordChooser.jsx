@@ -11,7 +11,7 @@ const WordChooser = () => {
     const { word, setWord } = useContext(GlobalContext);
     const wordsLength = makeUniqueArray(wordsFromFile.map(word => word.length));
 
-    // This should happen on the BE, so user's won't be able to know the selected word
+    // This should happen on the BE, so player's won't be able to know the selected word
     const setRandomWordByLength = length => {
         const filteredWordsArray = wordsFromFile.filter(word => word.length === length)
         const randomIndex = Math.floor(Math.random() * filteredWordsArray.length)
