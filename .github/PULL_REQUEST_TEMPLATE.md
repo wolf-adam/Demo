@@ -1,5 +1,6 @@
 ### Related issue
 - #1
+- fixed #1
 
 <!-- 
 ### Screenshots
