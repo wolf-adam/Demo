@@ -9,8 +9,6 @@
   - to let users continue their unfinished game even after the tab was closed (but the browser wass not)
 - CSS modules usage
   - avoid classname clashes
-- API calls
-  - TODO ⏳
 - Responsivity
   - TODO ⏳
 - Unit and integrity tests using [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
@@ -29,6 +27,10 @@
 
 - `npm test`
   - Launches the test runner in the interactive watch mode.
+
+- `npm run deploy -- -m "YOUR COMMIT'S MESSAGE" `
+  - build production code and save it to build folder
+  - update GH pages
 
 ### Getting Started with Create React App
 
